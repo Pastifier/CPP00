@@ -11,3 +11,6 @@ SRC := megaphone.cpp
 # Rules
 all: $(SRC)
 	$(CXX) -o $(NAME) $(CXXFLAGS) $(SRC)
+
+clean:
+	rm -rf $(NAME)
