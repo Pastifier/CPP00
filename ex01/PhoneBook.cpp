@@ -6,7 +6,7 @@
 /*   By: ebinjama <ebinjama@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 01:59:41 by ebinjama          #+#    #+#             */
-/*   Updated: 2024/08/16 02:18:06 by ebinjama         ###   ########.fr       */
+/*   Updated: 2024/08/16 02:59:14 by ebinjama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,24 @@ void PhoneBook::displayContactsBriefs(int width)
 		contacts[i].displayField(contacts[i].getNickname(), width);
 		std::cout << "|";
 		std::cout << std::endl;
+	}
+}
+
+void PhoneBook::checkPhoneNumberValidity(std::string &phoneNumber)
+{
+	const std::string validChars = "0123456789";
+	bool valid = true;
+	for (size_t i = 0; i < phoneNumber.length(); i++)
+	{
+		if (validChars.find(phoneNumber[i]) == std::string::npos)
+		{
+			valid = false;
+			break;
+		}
+	}
+	if (!valid)
+	{
+		std::cout << "I mean... I'm not sure that's a valid phone number. But I'll add it anyway." << std::endl;
 	}
 }
 
@@ -133,6 +151,7 @@ void PhoneBook::start() {
 				std::cout << "Input could not be identified as a valid ASCII string. Please try again." << std::endl;
 				continue;
 			}
+			checkPhoneNumberValidity(newContact.phoneNumber);
 			std::cout << "Enter darkest secret: ";
 			std::getline(std::cin, newContact.darkestSecret);
 			if (std::cin.eof()) {
@@ -179,15 +198,19 @@ bool PhoneBook::searchContact() {
 			std::cout << "Non-numerical index detected! Please try again with a number between '0' and '7'" << std::endl;
 			continue;
 		}
-		if (desiredIndex >= INT_MAX || desiredIndex <= INT_MIN) {
+		if (desiredIndex > UINT_FAST32_MAX || desiredIndex < 0) {
 			std::cout << "Integer Overflow detected. program will ensue with undefined behaviour" << std::endl;
+		}
+		if (floor(desiredIndex) != desiredIndex) {
+			std::cout << "Non-integer index detected! Please try again with a number between '0' and '7'" << std::endl;
+			continue;
 		}
 		if (desiredIndex < 0 || desiredIndex > 7) {
 			std::cout << "Index out-of-range! Choose a number from '0' to '7'" << std::endl;
 			continue;
 		}
 		contacts[(int)desiredIndex].displayContact();
-		std::cin.ignore(1, '\n');
+		std::cin.ignore(10000, '\n');
 		running = false;
 	}
 	return true;
