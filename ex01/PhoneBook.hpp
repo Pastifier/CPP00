@@ -6,7 +6,7 @@
 /*   By: ebinjama <ebinjama@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 00:08:30 by ebinjama          #+#    #+#             */
-/*   Updated: 2024/08/15 04:10:15 by ebinjama         ###   ########.fr       */
+/*   Updated: 2024/08/16 01:10:25 by ebinjama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@
 class PhoneBook
 {
 private:
-
-public:
 	int	contactIndex;
 	Contact contacts[8];
 
+public:
 	void addContact(const Contact& newContact);
-	PhoneBook(/* args */);
+	bool searchContact();
+	void displayContactsBriefs(int widthOfField);
+	void start();
+	PhoneBook();
 	~PhoneBook();
 };
 

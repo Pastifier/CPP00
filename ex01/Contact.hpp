@@ -6,7 +6,7 @@
 /*   By: ebinjama <ebinjama@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 00:10:31 by ebinjama          #+#    #+#             */
-/*   Updated: 2024/08/15 03:05:23 by ebinjama         ###   ########.fr       */
+/*   Updated: 2024/08/16 01:30:17 by ebinjama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 class Contact
 {
 private:
-	/* data */
+
 public:
 	std::string firstName;
 	std::string lastName;
@@ -27,7 +27,7 @@ public:
 
 	/*--- Defaults ---*/
 	
-	Contact(/* args */);
+	Contact();
 	~Contact();
 
 	/*--- Canonical Mandates ---*/
@@ -37,11 +37,11 @@ public:
 
 	/*--- Getters ----*/
 
-	const std::string& getFirstName();
-	const std::string& getLastName();
-	const std::string& getNickname();
-	const std::string& getPhoneNumber();
-	const std::string& getDarkestSecret();
+	std::string& getFirstName();
+	std::string& getLastName();
+	std::string& getNickname();
+	std::string& getPhoneNumber();
+	std::string& getDarkestSecret();
 
 	/*--- Setters ---*/
 
@@ -53,5 +53,6 @@ public:
 
 	/*--- Actions ---*/
 
-	void display();
+	void displayContact();
+	void displayField(std::string& field, size_t width);
 };

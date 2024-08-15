@@ -6,11 +6,13 @@
 /*   By: ebinjama <ebinjama@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 00:16:25 by ebinjama          #+#    #+#             */
-/*   Updated: 2024/08/15 03:15:49 by ebinjama         ###   ########.fr       */
+/*   Updated: 2024/08/16 02:24:13 by ebinjama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
+#include <iostream>
+#include <iomanip>
 
 Contact::Contact(/* args */)
 {
@@ -69,27 +71,55 @@ void Contact::setDarkestSecret(const std::string& darkestSecret)
 	this->darkestSecret = darkestSecret;
 }
 
-const std::string& Contact::getFirstName()
+std::string& Contact::getFirstName()
 {
 	return (this->firstName);
 }
 
-const std::string& Contact::getLastName()
+std::string& Contact::getLastName()
 {
 	return (this->lastName);
 }
 
-const std::string& Contact::getNickname()
+std::string& Contact::getNickname()
 {
 	return (this->nickname);
 }
 
-const std::string& Contact::getPhoneNumber()
+std::string& Contact::getPhoneNumber()
 {
 	return (this->phoneNumber);
 }
 
-const std::string& Contact::getDarkestSecret()
+std::string& Contact::getDarkestSecret()
 {
 	return (this->darkestSecret);
+}
+
+void Contact::displayField(std::string& field, size_t width)
+{
+	std::string fieldCopy = field;
+	if (fieldCopy.length() > width)
+	{
+		fieldCopy.resize(width - 1);
+		fieldCopy.append(".");
+	}
+	std::cout << std::setw(width) << fieldCopy;
+}
+
+void Contact::displayContact()
+{
+	std::endl(std::cout);
+	if (firstName.empty())
+	{
+		std::cout << "Contact is empty." << std::endl;
+		std::endl(std::cout);
+		return;
+	}
+	std::cout << "First Name: "<< this->firstName << std::endl;
+	std::cout << "Last Name: " << this->lastName << std::endl;
+	std::cout << "Nickname: " << this->nickname << std::endl;
+	std::cout << "Phone Number: " << this->phoneNumber << std::endl;
+	std::cout << "Darkest Secret: " << this->darkestSecret << std::endl;
+	std::endl(std::cout);
 }
