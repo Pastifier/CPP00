@@ -9,8 +9,10 @@ CXXFLAGS := -std=c++98 -Wall -Wextra -Werror -pedantic
 SRC := megaphone.cpp
 
 # Rules
-all: $(SRC)
-	$(CXX) -o $(NAME) $(CXXFLAGS) $(SRC)
+all: $(NAME)
+
+$(NAME): $(SRC)
+	$(CXX) -o $@ $(CXXFLAGS) $(SRC)
 
 clean:
 	rm -rf $(NAME)
