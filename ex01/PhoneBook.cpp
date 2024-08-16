@@ -6,7 +6,7 @@
 /*   By: ebinjama <ebinjama@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 01:59:41 by ebinjama          #+#    #+#             */
-/*   Updated: 2024/08/16 08:46:13 by ebinjama         ###   ########.fr       */
+/*   Updated: 2024/08/16 09:00:44 by ebinjama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#include <limits>
+#include <stdint.h> // for UINT_FAST32_MAX
 
 PhoneBook::PhoneBook(/* args */)
 {
