@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Phonebook.cpp                                      :+:      :+:    :+:   */
+/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebinjama <ebinjama@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 01:59:41 by ebinjama          #+#    #+#             */
-/*   Updated: 2024/08/16 07:15:02 by ebinjama         ###   ########.fr       */
+/*   Updated: 2024/08/16 08:46:13 by ebinjama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 #include <iostream>
 #include <iomanip>
+#include <cmath>
+#include <limits>
 
 PhoneBook::PhoneBook(/* args */)
 {
@@ -120,7 +122,7 @@ bool PhoneBook::searchContact() {
 		if (desiredIndex > UINT_FAST32_MAX || desiredIndex < 0) {
 			std::cout << "Integer Overflow detected. program will ensue with undefined behaviour" << std::endl;
 		}
-		if (floor(desiredIndex) != desiredIndex) {
+		if (std::floor(desiredIndex) != desiredIndex) {
 			std::cout << "Non-integer index detected! Please try again with a number between '0' and '7'" << std::endl;
 			continue;
 		}

@@ -6,8 +6,8 @@ CXX := c++
 CXXFLAGS := -std=c++98 -Wall -Wextra -Werror -pedantic
 
 # Targets
-SRC := Contact.cpp Phonebook.cpp main.cpp
-INCLUDE := Contact.hpp Phonebook.hpp
+SRC := Contact.cpp PhoneBook.cpp main.cpp
+INCLUDE := Contact.hpp PhoneBook.hpp
 
 # Rules
 all: $(NAME)
