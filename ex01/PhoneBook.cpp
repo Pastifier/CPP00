@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
+/*   Phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebinjama <ebinjama@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 01:59:41 by ebinjama          #+#    #+#             */
-/*   Updated: 2024/08/16 02:59:14 by ebinjama         ###   ########.fr       */
+/*   Updated: 2024/08/16 07:15:02 by ebinjama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 PhoneBook::PhoneBook(/* args */)
 {
-	contactIndex = 0;
+	_contactIndex = 0;
 	for (int i = 0; i < 8; i++)
 	{
-		contacts[i] = Contact();
+		_contacts[i] = Contact();
 	}
 }
 
@@ -29,10 +29,10 @@ PhoneBook::~PhoneBook()
 
 void PhoneBook::addContact(const Contact &newContact)
 {
-	if (this->contactIndex == 8)
-		this->contactIndex = 0;
-	this->contacts[contactIndex] = newContact;
-	this->contactIndex++;
+	if (this->_contactIndex == 8)
+		this->_contactIndex = 0;
+	this->_contacts[_contactIndex] = newContact;
+	this->_contactIndex++;
 }
 
 void PhoneBook::displayContactsBriefs(int width)
@@ -44,31 +44,13 @@ void PhoneBook::displayContactsBriefs(int width)
 	for (int i = 0; i < 8; i++)
 	{
 		std::cout << std::setw(width) << i << "|";
-		contacts[i].displayField(contacts[i].getFirstName(), width);
+		_contacts[i].displayField(_contacts[i].getFirstName(), width);
 		std::cout << "|";
-		contacts[i].displayField(contacts[i].getLastName(), width);
+		_contacts[i].displayField(_contacts[i].getLastName(), width);
 		std::cout << "|";
-		contacts[i].displayField(contacts[i].getNickname(), width);
+		_contacts[i].displayField(_contacts[i].getNickname(), width);
 		std::cout << "|";
 		std::cout << std::endl;
-	}
-}
-
-void PhoneBook::checkPhoneNumberValidity(std::string &phoneNumber)
-{
-	const std::string validChars = "0123456789";
-	bool valid = true;
-	for (size_t i = 0; i < phoneNumber.length(); i++)
-	{
-		if (validChars.find(phoneNumber[i]) == std::string::npos)
-		{
-			valid = false;
-			break;
-		}
-	}
-	if (!valid)
-	{
-		std::cout << "I mean... I'm not sure that's a valid phone number. But I'll add it anyway." << std::endl;
 	}
 }
 
@@ -86,89 +68,26 @@ void PhoneBook::start() {
 			std::cout << "\nBye-bye!" << std::endl;
 			running = false;
 		} else if (command == "ADD") {
+
 			Contact newContact;
-			std::cout << "Enter first name: ";
-			std::getline(std::cin, newContact.firstName);
-			if (std::cin.eof()) {
-				std::cout << std::endl;
-				break;
-			}
-			if (newContact.firstName.empty()) {
-				std::cout << "First name cannot be empty. Please try again." << std::endl;
+
+			if (!newContact.setFirstName()) {
 				continue;
 			}
-			if (std::cin.fail()) {
-				std::cin.clear();
-				std::cin.ignore(10000, '\n');
-				std::cout << "Input could not be identified as a valid ASCII string. Please try again." << std::endl;
+			if (!newContact.setLastName()) {
 				continue;
 			}
-			std::cout << "Enter last name: ";
-			std::getline(std::cin, newContact.lastName);
-			if (std::cin.eof()) {
-				std::cout << std::endl;
-				break;
-			}
-			if (newContact.lastName.empty()) {
-				std::cout << "Last name cannot be empty. Please try again." << std::endl;
+			if (!newContact.setNickname()) {
 				continue;
 			}
-			if (std::cin.fail()) {
-				std::cin.clear();
-				std::cin.ignore(10000, '\n');
-				std::cout << "Input could not be identified as a valid ASCII string. Please try again." << std::endl;
+			if (!newContact.setPhoneNumber()) {
 				continue;
 			}
-			std::cout << "Enter nickname: ";
-			std::getline(std::cin, newContact.nickname);
-			if (std::cin.eof()) {
-				std::cout << std::endl;
-				break;
-			}
-			if (newContact.nickname.empty()) {
-				std::cout << "Nickname cannot be empty. Please try again." << std::endl;
-				continue;
-			}
-			if (std::cin.fail()) {
-				std::cin.clear();
-				std::cin.ignore(10000, '\n');
-				std::cout << "Input could not be identified as a valid ASCII string. Please try again." << std::endl;
-				continue;
-			}
-			std::cout << "Enter phone number: ";
-			std::getline(std::cin, newContact.phoneNumber);
-			if (std::cin.eof()) {
-				std::cout << std::endl;
-				break;
-			}
-			if (newContact.phoneNumber.empty()) {
-				std::cout << "Phone number cannot be empty. Please try again." << std::endl;
-				continue;
-			}
-			if (std::cin.fail()) {
-				std::cin.clear();
-				std::cin.ignore(10000, '\n');
-				std::cout << "Input could not be identified as a valid ASCII string. Please try again." << std::endl;
-				continue;
-			}
-			checkPhoneNumberValidity(newContact.phoneNumber);
-			std::cout << "Enter darkest secret: ";
-			std::getline(std::cin, newContact.darkestSecret);
-			if (std::cin.eof()) {
-				std::cout << std::endl;
-				break;
-			}
-			if (newContact.darkestSecret.empty()) {
-				std::cout << "Darkest secret cannot be empty. Please try again." << std::endl;
-				continue;
-			}
-			if (std::cin.fail()) {
-				std::cin.clear();
-				std::cin.ignore(10000, '\n');
-				std::cout << "Input could not be identified as a valid ASCII string. Please try again." << std::endl;
+			if (!newContact.setDarkestSecret()) {
 				continue;
 			}
 			addContact(newContact);
+
 		} else if (command == "SEARCH") {
 			if (!searchContact()) {
 				break;
@@ -209,7 +128,7 @@ bool PhoneBook::searchContact() {
 			std::cout << "Index out-of-range! Choose a number from '0' to '7'" << std::endl;
 			continue;
 		}
-		contacts[(int)desiredIndex].displayContact();
+		_contacts[(int)desiredIndex].displayContact();
 		std::cin.ignore(10000, '\n');
 		running = false;
 	}

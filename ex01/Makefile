@@ -17,3 +17,5 @@ $(NAME): $(SRC) $(INCLUDE)
 
 clean:
 	rm -rf $(NAME)
+
+re: clean all

@@ -6,7 +6,7 @@
 /*   By: ebinjama <ebinjama@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 00:16:25 by ebinjama          #+#    #+#             */
-/*   Updated: 2024/08/16 02:54:31 by ebinjama         ###   ########.fr       */
+/*   Updated: 2024/08/16 07:11:35 by ebinjama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 Contact::Contact(/* args */)
 {
-	firstName = "";
-	lastName = "";
-	nickname = "";
-	phoneNumber = "";
-	darkestSecret = "";
+	_firstName = "";
+	_lastName = "";
+	_nickname = "";
+	_phoneNumber = "";
+	_darkestSecret = "";
 }
 
 Contact::~Contact()
@@ -29,74 +29,186 @@ Contact::~Contact()
 
 Contact& Contact::operator=(const Contact& other)
 {
-	setFirstName(other.firstName);
-	setLastName(other.lastName);
-	setNickname(other.nickname);
-	setPhoneNumber(other.phoneNumber);
-	setDarkestSecret(other.darkestSecret);
+	this->_firstName = other.getFirstName();
+	this->_lastName = other.getLastName();
+	this->_nickname = other.getNickname();
+	this->_phoneNumber = other.getPhoneNumber();
+	this->_darkestSecret = other.getDarkestSecret();
 	return (*this);
 }
 
 Contact::Contact(const Contact& other)
 {
-	setFirstName(other.firstName);
-	setLastName(other.lastName);
-	setNickname(other.nickname);
-	setPhoneNumber(other.phoneNumber);
-	setDarkestSecret(other.darkestSecret);
+	this->_firstName = other.getFirstName();
+	this->_lastName = other.getLastName();
+	this->_nickname = other.getNickname();
+	this->_phoneNumber = other.getPhoneNumber();
+	this->_darkestSecret = other.getDarkestSecret();
 }
 
-void Contact::setFirstName(const std::string& firstName)
+bool Contact::setFirstName()
 {
-	this->firstName = firstName;
+	std::string firstName;
+
+	std::cout << "Enter first name: ";
+	std::getline(std::cin, firstName);
+	if (std::cin.eof())
+		return false;
+	if (firstName.empty())
+	{
+		std::cout << "First name cannot be empty." << std::endl;
+		return false;
+	}
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout << "Invalid input." << std::endl;
+		return false;
+	}
+	_firstName = firstName;
+	return true;
 }
 
-void Contact::setLastName(const std::string& lastName)
+bool Contact::setLastName()
 {
-	this->lastName = lastName;
+	std::string lastName;
+
+	std::cout << "Enter last name: ";
+	std::getline(std::cin, lastName);
+	if (std::cin.eof())
+		return false;
+	if (lastName.empty())
+	{
+		std::cout << "Last name cannot be empty." << std::endl;
+		return false;
+	}
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout << "Input could not be identified as a valid ASCII string. Please try again." << std::endl;
+		return false;
+	}
+	_lastName = lastName;
+	return true;
 }
 
-void Contact::setNickname(const std::string& nickname)
+bool Contact::setNickname()
 {
-	this->nickname = nickname;
+	std::string nickname;
+
+	std::cout << "Enter nickname: ";
+	std::getline(std::cin, nickname);
+	if (std::cin.eof())
+		return false;
+	if (nickname.empty())
+	{
+		std::cout << "Nickname cannot be empty." << std::endl;
+		return false;
+	}
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout << "Input could not be identified as a valid ASCII string. Please try again." << std::endl;
+		return false;
+	}
+	this->_nickname = nickname;
+	return true;
 }
 
-void Contact::setPhoneNumber(const std::string& phoneNumber)
+bool Contact::setPhoneNumber()
 {
-	this->phoneNumber = phoneNumber;
+	std::string phoneNumber;
+
+	std::cout << "Enter phone number: ";
+	std::getline(std::cin, phoneNumber);
+	if (std::cin.eof())
+		return false;
+	if (phoneNumber.empty())
+	{
+		std::cout << "Phone number cannot be empty." << std::endl;
+		return false;
+	}
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout << "Input could not be identified as a valid ASCII string. Please try again." << std::endl;
+		return false;
+	}
+
+	const std::string validChars = "0123456789";
+	bool valid = true;
+
+	for (size_t i = 0; i < phoneNumber.length(); i++)
+	{
+		if (validChars.find(phoneNumber[i]) == std::string::npos)
+		{
+			valid = false;
+			break;
+		}
+	}
+	if (!valid)
+	{
+		std::cout << "I mean... I'm not sure that's a valid phone number. But I'll add it anyway." << std::endl;
+	}
+
+	this->_phoneNumber = phoneNumber;
+	return true;
 }
 
-void Contact::setDarkestSecret(const std::string& darkestSecret)
+bool Contact::setDarkestSecret()
 {
-	this->darkestSecret = darkestSecret;
+	std::string darkestSecret;
+
+	std::cout << "Enter darkest secret: ";
+	std::getline(std::cin, darkestSecret);
+	if (std::cin.eof())
+		return false;
+	if (darkestSecret.empty())
+	{
+		std::cout << "Darkest secret cannot be empty." << std::endl;
+		return false;
+	}
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout << "Input could not be identified as a valid ASCII string. Please try again." << std::endl;
+		return false;
+	}
+	this->_darkestSecret = darkestSecret;
+	return true;
 }
 
-std::string& Contact::getFirstName()
+const std::string& Contact::getFirstName() const
 {
-	return (this->firstName);
+	return (this->_firstName);
 }
 
-std::string& Contact::getLastName()
+const std::string& Contact::getLastName() const
 {
-	return (this->lastName);
+	return (this->_lastName);
 }
 
-std::string& Contact::getNickname()
+const std::string& Contact::getNickname() const
 {
-	return (this->nickname);
+	return (this->_nickname);
 }
 
-std::string& Contact::getPhoneNumber()
+const std::string& Contact::getPhoneNumber() const
 {
-	return (this->phoneNumber);
+	return (this->_phoneNumber);
 }
 
-std::string& Contact::getDarkestSecret()
+const std::string& Contact::getDarkestSecret() const
 {
-	return (this->darkestSecret);
+	return (this->_darkestSecret);
 }
 
-void Contact::displayField(std::string& field, size_t width)
+void Contact::displayField(const std::string& field, size_t width)
 {
 	std::string fieldCopy = field;
 	if (fieldCopy.length() > width)
@@ -110,16 +222,16 @@ void Contact::displayField(std::string& field, size_t width)
 void Contact::displayContact()
 {
 	std::endl(std::cout);
-	if (firstName.empty())
+	if (getFirstName().empty())
 	{
 		std::cout << "Contact is empty." << std::endl;
 		std::endl(std::cout);
 		return;
 	}
-	std::cout << "First Name: "<< this->firstName << std::endl;
-	std::cout << "Last Name: " << this->lastName << std::endl;
-	std::cout << "Nickname: " << this->nickname << std::endl;
-	std::cout << "Phone Number: " << this->phoneNumber << std::endl;
-	std::cout << "Darkest Secret: " << this->darkestSecret << std::endl;
+	std::cout << "First Name: "<< getFirstName() << std::endl;
+	std::cout << "Last Name: " << getLastName() << std::endl;
+	std::cout << "Nickname: " << getNickname() << std::endl;
+	std::cout << "Phone Number: " << getPhoneNumber() << std::endl;
+	std::cout << "Darkest Secret: " << getDarkestSecret() << std::endl;
 	std::endl(std::cout);
 }
